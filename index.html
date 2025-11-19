@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Statistics for Machine Learning & Data Science</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">📊 Statistics for ML/DL</h1>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="chapters.html">Chapters</a>
+                <a href="exercises.html">Exercises</a>
+                <a href="quizzes.html">Quizzes</a>
+                <a href="resources.html">Resources</a>
+            </div>
+            <div class="search-container">
+                <input type="text" id="search" placeholder="Search topics...">
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Master Statistics for Machine Learning & Data Science</h1>
+            <p>A comprehensive, rigorous course with extensive visualizations, Python code, and practical applications</p>
+            <a href="chapters.html" class="cta-button">Start Learning</a>
+        </div>
+    </div>
+
+    <main class="container">
+        <section class="intro">
+            <h2>Welcome to Your Statistical Journey</h2>
+            <p>This comprehensive course is designed for aspiring researchers in Machine Learning, Deep Learning, and Data Science.
+            It combines rigorous theoretical foundations with practical applications, featuring:</p>
+
+            <div class="features">
+                <div class="feature-card">
+                    <span class="feature-icon">📈</span>
+                    <h3>Interactive Visualizations</h3>
+                    <p>Hundreds of interactive plots and animations to build intuition</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🐍</span>
+                    <h3>Python Code Examples</h3>
+                    <p>Production-ready code using NumPy, SciPy, Pandas, and scikit-learn</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📚</span>
+                    <h3>Rigorous Theory</h3>
+                    <p>Deep dive into mathematical foundations with proofs and derivations</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>ML/DL Applications</h3>
+                    <p>Direct connections to modern machine learning and deep learning</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">✏️</span>
+                    <h3>Exercises & Quizzes</h3>
+                    <p>Practice problems with detailed solutions and interactive quizzes</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔗</span>
+                    <h3>Curated Resources</h3>
+                    <p>Links to papers, books, and courses for deeper exploration</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="course-outline">
+            <h2>Course Outline</h2>
+            <div class="chapters-grid">
+                <div class="chapter-card">
+                    <div class="chapter-number">01</div>
+                    <h3>Foundations of Probability Theory</h3>
+                    <ul>
+                        <li>Sample spaces and events</li>
+                        <li>Axioms of probability</li>
+                        <li>Conditional probability and independence</li>
+                        <li>Bayes' theorem</li>
+                        <li>Law of total probability</li>
+                    </ul>
+                    <a href="chapters/01-probability-foundations.html" class="chapter-link">Explore Chapter →</a>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">02</div>
+                    <h3>Random Variables & Distributions</h3>
+                    <ul>
+                        <li>Discrete and continuous random variables</li>
+                        <li>Common distributions (Normal, Binomial, Poisson, etc.)</li>
+                        <li>Expectation, variance, and moments</li>
+                        <li>Moment generating functions</li>
+                        <li>Multivariate distributions</li>
+                    </ul>
+                    <a href="chapters/02-random-variables.html" class="chapter-link">Explore Chapter →</a>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">03</div>
+                    <h3>Statistical Inference</h3>
+                    <ul>
+                        <li>Point estimation (MLE, MoM)</li>
+                        <li>Properties of estimators</li>
+                        <li>Confidence intervals</li>
+                        <li>Bootstrap methods</li>
+                        <li>Asymptotic theory</li>
+                    </ul>
+                    <a href="chapters/03-statistical-inference.html" class="chapter-link">Explore Chapter →</a>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">04</div>
+                    <h3>Hypothesis Testing</h3>
+                    <ul>
+                        <li>Null and alternative hypotheses</li>
+                        <li>Type I and Type II errors</li>
+                        <li>Common tests (t-test, χ², ANOVA)</li>
+                        <li>p-values and significance</li>
+                        <li>Multiple testing correction</li>
+                    </ul>
+                    <a href="chapters/04-hypothesis-testing.html" class="chapter-link">Explore Chapter →</a>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">05</div>
+                    <h3>Regression Analysis</h3>
+                    <ul>
+                        <li>Simple and multiple linear regression</li>
+                        <li>Ordinary least squares</li>
+                        <li>Assumptions and diagnostics</li>
+                        <li>Regularization (Ridge, Lasso)</li>
+                        <li>Generalized linear models</li>
+                    </ul>
+                    <a href="chapters/05-regression.html" class="chapter-link">Explore Chapter →</a>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">06</div>
+                    <h3>Bayesian Statistics</h3>
+                    <ul>
+                        <li>Bayesian inference framework</li>
+                        <li>Prior, likelihood, and posterior</li>
+                        <li>Conjugate priors</li>
+                        <li>MCMC methods</li>
+                        <li>Bayesian model comparison</li>
+                    </ul>
+                    <a href="chapters/06-bayesian-statistics.html" class="chapter-link">Explore Chapter →</a>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">07</div>
+                    <h3>Multivariate Statistics</h3>
+                    <ul>
+                        <li>Multivariate normal distribution</li>
+                        <li>Principal Component Analysis</li>
+                        <li>Factor analysis</li>
+                        <li>Canonical correlation</li>
+                        <li>Clustering methods</li>
+                    </ul>
+                    <a href="chapters/07-multivariate.html" class="chapter-link">Explore Chapter →</a>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">08</div>
+                    <h3>Time Series Analysis</h3>
+                    <ul>
+                        <li>Stationarity and autocorrelation</li>
+                        <li>ARMA and ARIMA models</li>
+                        <li>Seasonal decomposition</li>
+                        <li>Forecasting methods</li>
+                        <li>State space models</li>
+                    </ul>
+                    <a href="chapters/08-time-series.html" class="chapter-link">Explore Chapter →</a>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">09</div>
+                    <h3>Statistical Learning Theory</h3>
+                    <ul>
+                        <li>Bias-variance tradeoff</li>
+                        <li>PAC learning framework</li>
+                        <li>VC dimension</li>
+                        <li>Information theory (Entropy, KL divergence)</li>
+                        <li>Concentration inequalities</li>
+                    </ul>
+                    <a href="chapters/09-learning-theory.html" class="chapter-link">Explore Chapter →</a>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-number">10</div>
+                    <h3>Experimental Design & Causal Inference</h3>
+                    <ul>
+                        <li>Design of experiments</li>
+                        <li>A/B testing</li>
+                        <li>Causal inference frameworks</li>
+                        <li>Propensity score matching</li>
+                        <li>Instrumental variables</li>
+                    </ul>
+                    <a href="chapters/10-experimental-design.html" class="chapter-link">Explore Chapter →</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="demo-section">
+            <h2>Sample Interactive Visualization</h2>
+            <p>Explore the Central Limit Theorem in action:</p>
+            <div id="clt-demo"></div>
+            <div class="controls">
+                <label>Sample Size: <span id="sample-size-value">30</span></label>
+                <input type="range" id="sample-size" min="5" max="100" value="30">
+                <label>Number of Samples: <span id="num-samples-value">1000</span></label>
+                <input type="range" id="num-samples" min="100" max="5000" value="1000" step="100">
+                <button id="update-clt" class="cta-button">Update Visualization</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Statistics for ML/DL. A comprehensive learning resource.</p>
+            <p>Built with ❤️ for aspiring ML/DL researchers</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/clt-demo.js"></script>
+</body>
+</html>

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2: Random Variables & Distributions | Statistics for ML/DL</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">📊 Statistics for ML/DL</h1>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../chapters.html">Chapters</a>
+                <a href="../exercises.html">Exercises</a>
+                <a href="../quizzes.html">Quizzes</a>
+                <a href="../resources.html">Resources</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="chapter-header">
+        <div class="container">
+            <h1>Chapter 2: Random Variables & Probability Distributions</h1>
+            <p>The language of uncertainty in machine learning</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="chapter-content">
+            <h2>2.1 Random Variables</h2>
+
+            <div class="info-box definition">
+                <h4>Definition: Random Variable</h4>
+                <p>
+                    A <strong>random variable</strong> $X$ is a measurable function from a sample space $\Omega$ to the real numbers:
+                </p>
+                <div class="equation-block">
+                    $$X: \Omega \to \mathbb{R}$$
+                </div>
+                <p>
+                    Random variables provide a way to work with numerical outcomes of random experiments.
+                </p>
+            </div>
+
+            <div class="info-box example">
+                <h4>ML/DL Motivation</h4>
+                <p>In machine learning, random variables represent:</p>
+                <ul>
+                    <li>Input features: $X = (X_1, \ldots, X_d) \in \mathbb{R}^d$</li>
+                    <li>Output labels: $Y \in \{0, 1, \ldots, K-1\}$ (classification)</li>
+                    <li>Model predictions: $\hat{Y} = f(X; \theta)$</li>
+                    <li>Noise in data: $Y = f(X) + \varepsilon$ where $\varepsilon \sim \mathcal{N}(0, \sigma^2)$</li>
+                    <li>Network weights: $W \sim p(\theta)$ in Bayesian neural networks</li>
+                </ul>
+            </div>
+
+            <h3>2.1.1 Discrete vs Continuous</h3>
+            <ul>
+                <li><strong>Discrete random variable:</strong> Takes countable values (e.g., $\{0, 1, 2, \ldots\}$)</li>
+                <li><strong>Continuous random variable:</strong> Takes uncountable values (e.g., $\mathbb{R}$, $[0, 1]$)</li>
+            </ul>
+
+            <h2>2.2 Probability Mass Functions (PMF)</h2>
+
+            <div class="info-box definition">
+                <h4>Definition: Probability Mass Function</h4>
+                <p>For a discrete random variable $X$, the <strong>probability mass function (PMF)</strong> is:</p>
+                <div class="equation-block">
+                    $$p_X(x) = P(X = x)$$
+                </div>
+                <p>Properties:</p>
+                <ol>
+                    <li>$p_X(x) \geq 0$ for all $x$</li>
+                    <li>$\sum_{x} p_X(x) = 1$</li>
+                </ol>
+            </div>
+
+            <h3>2.2.1 Common Discrete Distributions</h3>
+
+            <h4>Bernoulli Distribution</h4>
+            <div class="info-box definition">
+                <h4>Bernoulli(p)</h4>
+                <p>Models a single binary trial (success/failure):</p>
+                <div class="equation-block">
+                    $$X \sim \text{Bernoulli}(p)$$
+                    $$p_X(x) = \begin{cases} p & \text{if } x = 1 \\ 1-p & \text{if } x = 0 \end{cases}$$
+                </div>
+                <p><strong>ML Applications:</strong> Binary classification labels, dropout masks in neural networks</p>
+            </div>
+
+            <h4>Binomial Distribution</h4>
+            <div class="info-box definition">
+                <h4>Binomial(n, p)</h4>
+                <p>Number of successes in $n$ independent Bernoulli(p) trials:</p>
+                <div class="equation-block">
+                    $$X \sim \text{Binomial}(n, p)$$
+                    $$p_X(k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k = 0, 1, \ldots, n$$
+                </div>
+                <p><strong>Moments:</strong> $\mathbb{E}[X] = np$, $\text{Var}(X) = np(1-p)$</p>
+            </div>
+
+            <div class="interactive-viz">
+                <h3>Interactive: Binomial Distribution</h3>
+                <div class="controls">
+                    <label>n (trials) = <span id="binomial-n-value">10</span></label>
+                    <input type="range" id="binomial-n" min="1" max="50" value="10">
+                    <label>p (probability) = <span id="binomial-p-value">0.5</span></label>
+                    <input type="range" id="binomial-p" min="0.01" max="0.99" step="0.01" value="0.5">
+                    <button class="cta-button" onclick="updateBinomialViz()">Update</button>
+                </div>
+                <div id="binomial-viz"></div>
+            </div>
+
+            <h4>Poisson Distribution</h4>
+            <div class="info-box definition">
+                <h4>Poisson(λ)</h4>
+                <p>Number of events in a fixed interval when events occur at constant rate $\lambda$:</p>
+                <div class="equation-block">
+                    $$X \sim \text{Poisson}(\lambda)$$
+                    $$p_X(k) = \frac{\lambda^k e^{-\lambda}}{k!}, \quad k = 0, 1, 2, \ldots$$
+                </div>
+                <p><strong>Moments:</strong> $\mathbb{E}[X] = \text{Var}(X) = \lambda$</p>
+                <p><strong>ML Applications:</strong> Count data, rare events, word frequencies in NLP</p>
+            </div>
+
+            <h4>Categorical Distribution</h4>
+            <div class="info-box definition">
+                <h4>Categorical(p<sub>1</sub>, ..., p<sub>K</sub>)</h4>
+                <p>Generalization of Bernoulli to K categories:</p>
+                <div class="equation-block">
+                    $$P(X = k) = p_k, \quad k = 1, \ldots, K, \quad \sum_{k=1}^K p_k = 1$$
+                </div>
+                <p><strong>ML Applications:</strong> Multi-class classification (softmax output layer)</p>
+            </div>
+
+            <h2>2.3 Probability Density Functions (PDF)</h2>
+
+            <div class="info-box definition">
+                <h4>Definition: Probability Density Function</h4>
+                <p>For a continuous random variable $X$, the <strong>probability density function (PDF)</strong> $f_X(x)$ satisfies:</p>
+                <div class="equation-block">
+                    $$P(a \leq X \leq b) = \int_a^b f_X(x) \, dx$$
+                </div>
+                <p>Properties:</p>
+                <ol>
+                    <li>$f_X(x) \geq 0$ for all $x$</li>
+                    <li>$\int_{-\infty}^{\infty} f_X(x) \, dx = 1$</li>
+                </ol>
+                <p><strong>Note:</strong> $f_X(x)$ is NOT a probability! It's a density. $P(X = x) = 0$ for continuous X.</p>
+            </div>
+
+            <h3>2.3.1 Common Continuous Distributions</h3>
+
+            <h4>Uniform Distribution</h4>
+            <div class="info-box definition">
+                <h4>Uniform(a, b)</h4>
+                <p>Constant probability density on $[a, b]$:</p>
+                <div class="equation-block">
+                    $$X \sim \text{Uniform}(a, b)$$
+                    $$f_X(x) = \begin{cases} \frac{1}{b-a} & \text{if } a \leq x \leq b \\ 0 & \text{otherwise} \end{cases}$$
+                </div>
+                <p><strong>Moments:</strong> $\mathbb{E}[X] = \frac{a+b}{2}$, $\text{Var}(X) = \frac{(b-a)^2}{12}$</p>
+                <p><strong>ML Applications:</strong> Random initialization, uniform sampling</p>
+            </div>
+
+            <h4>Normal (Gaussian) Distribution</h4>
+            <div class="info-box definition">
+                <h4>Normal(μ, σ²) - The Most Important Distribution in Statistics!</h4>
+                <div class="equation-block">
+                    $$X \sim \mathcal{N}(\mu, \sigma^2)$$
+                    $$f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$
+                </div>
+                <p><strong>Moments:</strong> $\mathbb{E}[X] = \mu$, $\text{Var}(X) = \sigma^2$</p>
+                <p><strong>Standard Normal:</strong> $\mathcal{N}(0, 1)$</p>
+            </div>
+
+            <div class="info-box theorem">
+                <h4>Why is the Normal Distribution So Important?</h4>
+                <ol>
+                    <li><strong>Central Limit Theorem:</strong> Sums of i.i.d. random variables converge to normal</li>
+                    <li><strong>Maximum Entropy:</strong> Among all distributions with given mean and variance, normal has maximum entropy</li>
+                    <li><strong>ML Applications:</strong>
+                        <ul>
+                            <li>Gaussian noise assumption in linear regression</li>
+                            <li>Weight initialization (Xavier/He)</li>
+                            <li>Latent space in VAEs</li>
+                            <li>Gaussian Processes</li>
+                            <li>Error distributions in many models</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="interactive-viz">
+                <h3>Interactive: Normal Distribution</h3>
+                <div class="controls">
+                    <label>μ (mean) = <span id="normal-mu-value">0</span></label>
+                    <input type="range" id="normal-mu" min="-5" max="5" step="0.1" value="0">
+                    <label>σ (std dev) = <span id="normal-sigma-value">1</span></label>
+                    <input type="range" id="normal-sigma" min="0.1" max="3" step="0.1" value="1">
+                    <button class="cta-button" onclick="updateNormalViz()">Update</button>
+                </div>
+                <div id="normal-viz"></div>
+            </div>
+
+            <h4>Exponential Distribution</h4>
+            <div class="info-box definition">
+                <h4>Exponential(λ)</h4>
+                <p>Time between events in a Poisson process:</p>
+                <div class="equation-block">
+                    $$X \sim \text{Exp}(\lambda)$$
+                    $$f_X(x) = \lambda e^{-\lambda x}, \quad x \geq 0$$
+                </div>
+                <p><strong>Moments:</strong> $\mathbb{E}[X] = \frac{1}{\lambda}$, $\text{Var}(X) = \frac{1}{\lambda^2}$</p>
+                <p><strong>Memoryless property:</strong> $P(X > s + t \mid X > s) = P(X > t)$</p>
+            </div>
+
+            <h4>Beta Distribution</h4>
+            <div class="info-box definition">
+                <h4>Beta(α, β)</h4>
+                <p>Distribution on $[0, 1]$, often used as prior for probabilities:</p>
+                <div class="equation-block">
+                    $$X \sim \text{Beta}(\alpha, \beta)$$
+                    $$f_X(x) = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha, \beta)}, \quad 0 \leq x \leq 1$$
+                </div>
+                <p>where $B(\alpha, \beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}$ is the Beta function.</p>
+                <p><strong>ML Applications:</strong> Bayesian inference, conjugate prior for Bernoulli/Binomial</p>
+            </div>
+
+            <h2>2.4 Cumulative Distribution Function (CDF)</h2>
+
+            <div class="info-box definition">
+                <h4>Definition: CDF</h4>
+                <p>The <strong>cumulative distribution function</strong> of a random variable $X$ is:</p>
+                <div class="equation-block">
+                    $$F_X(x) = P(X \leq x)$$
+                </div>
+                <p>Properties:</p>
+                <ol>
+                    <li>$F_X$ is non-decreasing</li>
+                    <li>$\lim_{x \to -\infty} F_X(x) = 0$ and $\lim_{x \to \infty} F_X(x) = 1$</li>
+                    <li>$F_X$ is right-continuous</li>
+                    <li>For continuous X: $f_X(x) = \frac{d}{dx} F_X(x)$</li>
+                </ol>
+            </div>
+
+            <div class="info-box example">
+                <h4>Example 2.1: Standard Normal CDF</h4>
+                <p>For $Z \sim \mathcal{N}(0, 1)$, the CDF is denoted $\Phi(z)$:</p>
+                <div class="equation-block">
+                    $$\Phi(z) = P(Z \leq z) = \int_{-\infty}^z \frac{1}{\sqrt{2\pi}} e^{-t^2/2} \, dt$$
+                </div>
+                <p>Important values (memorize these!):</p>
+                <ul>
+                    <li>$\Phi(0) = 0.5$</li>
+                    <li>$\Phi(1.96) \approx 0.975$ (95th percentile)</li>
+                    <li>$\Phi(2.58) \approx 0.995$ (99th percentile)</li>
+                </ul>
+            </div>
+
+            <h2>2.5 Expectation and Moments</h2>
+
+            <div class="info-box definition">
+                <h4>Definition: Expectation</h4>
+                <p>The <strong>expected value</strong> (mean) of a random variable $X$ is:</p>
+                <div class="equation-block">
+                    $$\mathbb{E}[X] = \begin{cases}
+                    \sum_x x \cdot p_X(x) & \text{if } X \text{ is discrete} \\
+                    \int_{-\infty}^{\infty} x \cdot f_X(x) \, dx & \text{if } X \text{ is continuous}
+                    \end{cases}$$
+                </div>
+            </div>
+
+            <div class="info-box theorem">
+                <h4>Properties of Expectation</h4>
+                <ol>
+                    <li><strong>Linearity:</strong> $\mathbb{E}[aX + bY] = a\mathbb{E}[X] + b\mathbb{E}[Y]$</li>
+                    <li><strong>Law of the Unconscious Statistician (LOTUS):</strong> $\mathbb{E}[g(X)] = \int g(x) f_X(x) \, dx$</li>
+                    <li><strong>Independence:</strong> If $X \perp Y$, then $\mathbb{E}[XY] = \mathbb{E}[X]\mathbb{E}[Y]$</li>
+                </ol>
+            </div>
+
+            <h3>2.5.1 Variance and Standard Deviation</h3>
+            <div class="info-box definition">
+                <h4>Variance</h4>
+                <p>Measures spread around the mean:</p>
+                <div class="equation-block">
+                    $$\text{Var}(X) = \mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[X^2] - (\mathbb{E}[X])^2$$
+                </div>
+                <p><strong>Standard deviation:</strong> $\sigma_X = \sqrt{\text{Var}(X)}$</p>
+            </div>
+
+            <div class="info-box theorem">
+                <h4>Properties of Variance</h4>
+                <ol>
+                    <li>$\text{Var}(aX + b) = a^2 \text{Var}(X)$</li>
+                    <li>If $X \perp Y$: $\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y)$</li>
+                    <li>$\text{Var}(X) \geq 0$ with equality iff $X$ is constant</li>
+                </ol>
+            </div>
+
+            <h3>2.5.2 Higher Moments</h3>
+            <div class="info-box definition">
+                <h4>Moments</h4>
+                <ul>
+                    <li><strong>$k$-th moment:</strong> $\mathbb{E}[X^k]$</li>
+                    <li><strong>$k$-th central moment:</strong> $\mathbb{E}[(X - \mathbb{E}[X])^k]$</li>
+                    <li><strong>Skewness:</strong> $\frac{\mathbb{E}[(X-\mu)^3]}{\sigma^3}$ (asymmetry)</li>
+                    <li><strong>Kurtosis:</strong> $\frac{\mathbb{E}[(X-\mu)^4]}{\sigma^4}$ (tail heaviness)</li>
+                </ul>
+            </div>
+
+            <h2>2.6 Moment Generating Functions</h2>
+
+            <div class="info-box definition">
+                <h4>Definition: MGF</h4>
+                <p>The <strong>moment generating function</strong> of $X$ is:</p>
+                <div class="equation-block">
+                    $$M_X(t) = \mathbb{E}[e^{tX}]$$
+                </div>
+                <p>If it exists in a neighborhood of $t = 0$.</p>
+            </div>
+
+            <div class="info-box theorem">
+                <h4>Why MGFs are Useful</h4>
+                <ol>
+                    <li><strong>Generate moments:</strong> $\mathbb{E}[X^k] = M_X^{(k)}(0)$ (k-th derivative at 0)</li>
+                    <li><strong>Uniqueness:</strong> MGF uniquely determines distribution</li>
+                    <li><strong>Sums of independent RVs:</strong> If $X \perp Y$, then $M_{X+Y}(t) = M_X(t) \cdot M_Y(t)$</li>
+                </ol>
+            </div>
+
+            <div class="info-box example">
+                <h4>Example 2.2: MGF of Normal Distribution</h4>
+                <p>If $X \sim \mathcal{N}(\mu, \sigma^2)$, then:</p>
+                <div class="equation-block">
+                    $$M_X(t) = \exp\left(\mu t + \frac{\sigma^2 t^2}{2}\right)$$
+                </div>
+                <p>This shows that sum of independent normals is normal:
+                If $X_i \sim \mathcal{N}(\mu_i, \sigma_i^2)$ independently, then
+                $\sum X_i \sim \mathcal{N}(\sum \mu_i, \sum \sigma_i^2)$</p>
+            </div>
+
+            <h2>2.7 Multivariate Distributions</h2>
+
+            <div class="info-box definition">
+                <h4>Joint Distribution</h4>
+                <p>For random variables $X$ and $Y$:</p>
+                <ul>
+                    <li><strong>Joint PMF (discrete):</strong> $p_{X,Y}(x, y) = P(X = x, Y = y)$</li>
+                    <li><strong>Joint PDF (continuous):</strong> $P((X,Y) \in A) = \iint_A f_{X,Y}(x,y) \, dx \, dy$</li>
+                </ul>
+            </div>
+
+            <h3>2.7.1 Marginal and Conditional Distributions</h3>
+            <div class="info-box definition">
+                <h4>Marginalization</h4>
+                <p>Obtain marginal from joint:</p>
+                <div class="equation-block">
+                    $$f_X(x) = \int_{-\infty}^{\infty} f_{X,Y}(x, y) \, dy$$
+                </div>
+                <p>Discrete: $p_X(x) = \sum_y p_{X,Y}(x, y)$</p>
+            </div>
+
+            <div class="info-box definition">
+                <h4>Conditional Distribution</h4>
+                <div class="equation-block">
+                    $$f_{X|Y}(x \mid y) = \frac{f_{X,Y}(x, y)}{f_Y(y)}$$
+                </div>
+            </div>
+
+            <h3>2.7.2 Multivariate Normal Distribution</h3>
+            <div class="info-box definition">
+                <h4>Multivariate Normal</h4>
+                <p>For $\mathbf{X} = (X_1, \ldots, X_d)^T \in \mathbb{R}^d$:</p>
+                <div class="equation-block">
+                    $$\mathbf{X} \sim \mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$$
+                    $$f_\mathbf{X}(\mathbf{x}) = \frac{1}{(2\pi)^{d/2}|\boldsymbol{\Sigma}|^{1/2}} \exp\left(-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu})\right)$$
+                </div>
+                <p>where $\boldsymbol{\mu} \in \mathbb{R}^d$ is the mean vector and $\boldsymbol{\Sigma} \in \mathbb{R}^{d \times d}$ is the covariance matrix.</p>
+                <p><strong>ML Applications:</strong> Gaussian discriminant analysis, Gaussian mixture models, VAEs</p>
+            </div>
+
+            <h2>2.8 Python Implementation</h2>
+
+            <div class="code-header">Python: Working with Distributions</div>
+            <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+# Set style
+sns.set_style("whitegrid")
+plt.rcParams['figure.figsize'] = (12, 6)
+
+# ========================================
+# 1. Discrete Distributions
+# ========================================
+
+# Binomial Distribution
+n, p = 20, 0.3
+x = np.arange(0, n+1)
+pmf = stats.binom.pmf(x, n, p)
+
+fig, (ax1, ax2) = plt.subplots(1, 2)
+ax1.bar(x, pmf, alpha=0.7, color='steelblue')
+ax1.set_title(f'Binomial PMF (n={n}, p={p})')
+ax1.set_xlabel('k')
+ax1.set_ylabel('P(X = k)')
+
+# CDF
+cdf = stats.binom.cdf(x, n, p)
+ax2.step(x, cdf, where='post', linewidth=2, color='darkred')
+ax2.set_title(f'Binomial CDF')
+ax2.set_xlabel('k')
+ax2.set_ylabel('P(X ≤ k)')
+plt.tight_layout()
+
+# Poisson Distribution
+lambda_param = 3.5
+x_poisson = np.arange(0, 15)
+pmf_poisson = stats.poisson.pmf(x_poisson, lambda_param)
+
+plt.figure()
+plt.bar(x_poisson, pmf_poisson, alpha=0.7, color='green')
+plt.title(f'Poisson PMF (λ={lambda_param})')
+plt.xlabel('k')
+plt.ylabel('P(X = k)')
+
+# ========================================
+# 2. Continuous Distributions
+# ========================================
+
+# Normal Distribution - varying parameters
+x_norm = np.linspace(-10, 10, 1000)
+params = [(0, 1), (0, 2), (2, 1), (2, 0.5)]
+
+plt.figure(figsize=(12, 5))
+for mu, sigma in params:
+    pdf = stats.norm.pdf(x_norm, mu, sigma)
+    plt.plot(x_norm, pdf, label=f'μ={mu}, σ={sigma}', linewidth=2)
+plt.title('Normal Distribution - Different Parameters')
+plt.xlabel('x')
+plt.ylabel('Density')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+# Comparing distributions
+plt.figure(figsize=(14, 10))
+
+# 1. Exponential
+ax1 = plt.subplot(2, 3, 1)
+x_exp = np.linspace(0, 5, 1000)
+for lam in [0.5, 1, 2]:
+    plt.plot(x_exp, stats.expon.pdf(x_exp, scale=1/lam), label=f'λ={lam}')
+plt.title('Exponential Distribution')
+plt.legend()
+
+# 2. Beta
+ax2 = plt.subplot(2, 3, 2)
+x_beta = np.linspace(0, 1, 1000)
+for alpha, beta in [(0.5, 0.5), (2, 2), (5, 2), (2, 5)]:
+    plt.plot(x_beta, stats.beta.pdf(x_beta, alpha, beta),
+             label=f'α={alpha}, β={beta}')
+plt.title('Beta Distribution')
+plt.legend()
+
+# 3. Gamma
+ax3 = plt.subplot(2, 3, 3)
+x_gamma = np.linspace(0, 20, 1000)
+for k, theta in [(1, 2), (2, 2), (5, 1), (9, 0.5)]:
+    plt.plot(x_gamma, stats.gamma.pdf(x_gamma, k, scale=theta),
+             label=f'k={k}, θ={theta}')
+plt.title('Gamma Distribution')
+plt.legend()
+
+# 4. Chi-squared
+ax4 = plt.subplot(2, 3, 4)
+x_chi2 = np.linspace(0, 15, 1000)
+for df in [1, 2, 3, 5, 9]:
+    plt.plot(x_chi2, stats.chi2.pdf(x_chi2, df), label=f'df={df}')
+plt.title('Chi-Squared Distribution')
+plt.legend()
+
+# 5. Student's t
+ax5 = plt.subplot(2, 3, 5)
+x_t = np.linspace(-5, 5, 1000)
+for df in [1, 2, 5, 30]:
+    plt.plot(x_t, stats.t.pdf(x_t, df), label=f'df={df}')
+plt.plot(x_t, stats.norm.pdf(x_t), 'k--', label='Normal', linewidth=2)
+plt.title("Student's t Distribution")
+plt.legend()
+
+# 6. F-distribution
+ax6 = plt.subplot(2, 3, 6)
+x_f = np.linspace(0, 5, 1000)
+for d1, d2 in [(1, 1), (2, 1), (5, 2), (10, 10)]:
+    plt.plot(x_f, stats.f.pdf(x_f, d1, d2), label=f'd1={d1}, d2={d2}')
+plt.title('F Distribution')
+plt.legend()
+
+plt.tight_layout()
+
+# ========================================
+# 3. Multivariate Normal
+# ========================================
+
+# 2D Multivariate Normal
+mu = np.array([0, 0])
+cov = np.array([[1, 0.5], [0.5, 1]])
+
+# Generate samples
+samples = np.random.multivariate_normal(mu, cov, 1000)
+
+# Create grid for contour plot
+x, y = np.mgrid[-3:3:.01, -3:3:.01]
+pos = np.dstack((x, y))
+rv = stats.multivariate_normal(mu, cov)
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
+
+# Contour plot
+ax1.contour(x, y, rv.pdf(pos), levels=10, cmap='viridis')
+ax1.scatter(samples[:, 0], samples[:, 1], alpha=0.3, s=1)
+ax1.set_title('Bivariate Normal - Contours and Samples')
+ax1.set_xlabel('X₁')
+ax1.set_ylabel('X₂')
+ax1.axis('equal')
+
+# 3D surface
+from mpl_toolkits.mplot3d import Axes3D
+ax2 = fig.add_subplot(122, projection='3d')
+ax2.plot_surface(x, y, rv.pdf(pos), cmap='viridis', alpha=0.8)
+ax2.set_title('Bivariate Normal - Density Surface')
+ax2.set_xlabel('X₁')
+ax2.set_ylabel('X₂')
+ax2.set_zlabel('Density')
+
+plt.tight_layout()
+
+# ========================================
+# 4. Sampling and Transformations
+# ========================================
+
+def sample_and_transform():
+    """Demonstrate sampling and transformations"""
+    n_samples = 10000
+
+    # Box-Muller transform: U(0,1) -> N(0,1)
+    u1 = np.random.uniform(0, 1, n_samples)
+    u2 = np.random.uniform(0, 1, n_samples)
+
+    z1 = np.sqrt(-2 * np.log(u1)) * np.cos(2 * np.pi * u2)
+    z2 = np.sqrt(-2 * np.log(u1)) * np.sin(2 * np.pi * u2)
+
+    fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+    # Original uniform
+    axes[0, 0].hist(u1, bins=50, density=True, alpha=0.7, color='blue')
+    axes[0, 0].set_title('Uniform(0, 1) samples')
+
+    # Transformed normal
+    axes[0, 1].hist(z1, bins=50, density=True, alpha=0.7, color='red')
+    x = np.linspace(-4, 4, 100)
+    axes[0, 1].plot(x, stats.norm.pdf(x), 'k-', linewidth=2,
+                    label='N(0,1) PDF')
+    axes[0, 1].set_title('Box-Muller Transform → N(0,1)')
+    axes[0, 1].legend()
+
+    # Inverse transform: exponential
+    lambda_exp = 1.5
+    exp_samples = -np.log(1 - u1) / lambda_exp
+    axes[1, 0].hist(exp_samples, bins=50, density=True,
+                    alpha=0.7, color='green')
+    x_exp = np.linspace(0, 5, 100)
+    axes[1, 0].plot(x_exp, stats.expon.pdf(x_exp, scale=1/lambda_exp),
+                    'k-', linewidth=2, label=f'Exp({lambda_exp}) PDF')
+    axes[1, 0].set_title('Inverse Transform → Exponential')
+    axes[1, 0].legend()
+
+    # CLT demonstration
+    sample_sizes = [1, 5, 30]
+    for n in sample_sizes:
+        means = [np.mean(np.random.exponential(1, n))
+                 for _ in range(n_samples)]
+        axes[1, 1].hist(means, bins=30, density=True, alpha=0.5,
+                       label=f'n={n}')
+
+    axes[1, 1].set_title('Central Limit Theorem')
+    axes[1, 1].legend()
+    plt.tight_layout()
+
+sample_and_transform()
+
+# ========================================
+# 5. Distribution Fitting
+# ========================================
+
+# Generate data from unknown distribution
+true_data = np.concatenate([
+    np.random.normal(0, 1, 500),
+    np.random.normal(3, 0.5, 300)
+])
+
+# Fit different distributions
+dist_names = ['norm', 'gamma', 'lognorm', 'beta']
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+axes = axes.ravel()
+
+for idx, dist_name in enumerate(dist_names):
+    ax = axes[idx]
+
+    # Fit distribution
+    dist = getattr(stats, dist_name)
+    params = dist.fit(true_data)
+
+    # Plot histogram
+    ax.hist(true_data, bins=50, density=True, alpha=0.6,
+            color='gray', label='Data')
+
+    # Plot fitted PDF
+    x = np.linspace(true_data.min(), true_data.max(), 1000)
+    pdf = dist.pdf(x, *params)
+    ax.plot(x, pdf, 'r-', linewidth=2,
+            label=f'Fitted {dist_name}')
+
+    ax.set_title(f'{dist_name.capitalize()} Fit')
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+            <h2>2.9 Exercises</h2>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <h3>Exercise 2.1</h3>
+                    <span class="exercise-difficulty easy">Easy</span>
+                </div>
+                <p>
+                    If $X \sim \text{Binomial}(n, p)$, show that $\mathbb{E}[X] = np$.
+                </p>
+                <button class="solution-toggle">Show Solution</button>
+                <div class="solution">
+                    <p><strong>Solution:</strong></p>
+                    <div class="equation-block">
+                        $$\mathbb{E}[X] = \sum_{k=0}^n k \cdot \binom{n}{k} p^k (1-p)^{n-k}$$
+                        $$= \sum_{k=1}^n k \cdot \frac{n!}{k!(n-k)!} p^k (1-p)^{n-k}$$
+                        $$= np \sum_{k=1}^n \frac{(n-1)!}{(k-1)!(n-k)!} p^{k-1} (1-p)^{n-k}$$
+                        $$= np \sum_{j=0}^{n-1} \binom{n-1}{j} p^j (1-p)^{n-1-j}$$
+                        $$= np \cdot 1 = np$$
+                    </div>
+                    <p>where we used the binomial theorem: $\sum_{j=0}^{n-1} \binom{n-1}{j} p^j (1-p)^{n-1-j} = (p + (1-p))^{n-1} = 1$. □</p>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <h3>Exercise 2.2</h3>
+                    <span class="exercise-difficulty medium">Medium</span>
+                </div>
+                <p>
+                    Show that if $X \sim \mathcal{N}(0, 1)$, then $Y = \mu + \sigma X \sim \mathcal{N}(\mu, \sigma^2)$.
+                </p>
+                <button class="solution-toggle">Show Solution</button>
+                <div class="solution">
+                    <p><strong>Solution using transformation:</strong></p>
+                    <p>Let $Y = \mu + \sigma X$ where $X \sim \mathcal{N}(0, 1)$. Then $X = \frac{Y - \mu}{\sigma}$.</p>
+                    <p>The Jacobian is: $\left|\frac{dx}{dy}\right| = \frac{1}{\sigma}$</p>
+                    <div class="equation-block">
+                        $$f_Y(y) = f_X\left(\frac{y-\mu}{\sigma}\right) \cdot \frac{1}{\sigma}$$
+                        $$= \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{1}{2}\left(\frac{y-\mu}{\sigma}\right)^2\right) \cdot \frac{1}{\sigma}$$
+                        $$= \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(y-\mu)^2}{2\sigma^2}\right)$$
+                    </div>
+                    <p>This is the PDF of $\mathcal{N}(\mu, \sigma^2)$. □</p>
+                </div>
+            </div>
+
+            <h2>2.10 Further Resources</h2>
+            <div class="info-box example">
+                <h4>Additional Resources</h4>
+                <ul>
+                    <li><strong>Interactive:</strong> <a href="https://seeing-theory.brown.edu/probability-distributions/" target="_blank">Seeing Theory - Distributions</a></li>
+                    <li><strong>Books:</strong> "All of Statistics" by Larry Wasserman (Chapter 2-3)</li>
+                    <li><strong>ML Connection:</strong> "Deep Learning Book" Chapter 3.9 (Common Probability Distributions)</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="01-probability-foundations.html" class="cta-button">← Previous: Probability Foundations</a>
+                <a href="03-statistical-inference.html" class="cta-button">Next: Statistical Inference →</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Statistics for ML/DL. A comprehensive learning resource.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/distributions-viz.js"></script>
+</body>
+</html>

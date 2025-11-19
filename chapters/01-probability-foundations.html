@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 1: Foundations of Probability Theory | Statistics for ML/DL</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">📊 Statistics for ML/DL</h1>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../chapters.html">Chapters</a>
+                <a href="../exercises.html">Exercises</a>
+                <a href="../quizzes.html">Quizzes</a>
+                <a href="../resources.html">Resources</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="chapter-header">
+        <div class="container">
+            <h1>Chapter 1: Foundations of Probability Theory</h1>
+            <p>Building rigorous mathematical foundations for statistical reasoning</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="chapter-content">
+            <h2>1.1 Introduction</h2>
+            <p>
+                Probability theory forms the mathematical foundation of statistics, machine learning, and data science.
+                Understanding probability rigorously is essential for developing and analyzing ML algorithms, quantifying
+                uncertainty, and making principled decisions from data.
+            </p>
+
+            <div class="info-box definition">
+                <h4>Why Probability Matters in ML/DL</h4>
+                <p>Modern machine learning is fundamentally probabilistic:</p>
+                <ul style="margin-top: 0.5rem;">
+                    <li>Neural networks use probabilistic loss functions (cross-entropy)</li>
+                    <li>Bayesian deep learning quantifies model uncertainty</li>
+                    <li>Generative models (VAEs, GANs) explicitly model probability distributions</li>
+                    <li>Reinforcement learning uses probabilistic policies</li>
+                </ul>
+            </div>
+
+            <h2>1.2 Sample Spaces and Events</h2>
+
+            <h3>1.2.1 Sample Space</h3>
+            <div class="info-box definition">
+                <h4>Definition: Sample Space</h4>
+                <p>
+                    The <strong>sample space</strong> $\Omega$ is the set of all possible outcomes of a random experiment.
+                    Each element $\omega \in \Omega$ is called a <strong>sample point</strong> or <strong>outcome</strong>.
+                </p>
+            </div>
+
+            <div class="info-box example">
+                <h4>Example 1.1: Sample Spaces</h4>
+                <ol>
+                    <li><strong>Coin flip:</strong> $\Omega = \{H, T\}$</li>
+                    <li><strong>Die roll:</strong> $\Omega = \{1, 2, 3, 4, 5, 6\}$</li>
+                    <li><strong>Image classification:</strong> $\Omega = \{\text{cat}, \text{dog}, \text{bird}, \ldots\}$</li>
+                    <li><strong>Continuous measurement:</strong> $\Omega = \mathbb{R}$ or $\Omega = [0, \infty)$</li>
+                    <li><strong>Neural network output:</strong> $\Omega = [0, 1]^K$ (K-class probabilities)</li>
+                </ol>
+            </div>
+
+            <h3>1.2.2 Events</h3>
+            <div class="info-box definition">
+                <h4>Definition: Event</h4>
+                <p>
+                    An <strong>event</strong> $A$ is a subset of the sample space: $A \subseteq \Omega$.
+                    The collection of all events forms a <strong>σ-algebra</strong> (sigma-algebra) $\mathcal{F}$.
+                </p>
+            </div>
+
+            <div class="info-box definition">
+                <h4>Definition: σ-Algebra</h4>
+                <p>A collection $\mathcal{F}$ of subsets of $\Omega$ is a σ-algebra if:</p>
+                <ol>
+                    <li>$\Omega \in \mathcal{F}$ (the sample space is an event)</li>
+                    <li>If $A \in \mathcal{F}$, then $A^c \in \mathcal{F}$ (closed under complementation)</li>
+                    <li>If $A_1, A_2, \ldots \in \mathcal{F}$, then $\bigcup_{i=1}^{\infty} A_i \in \mathcal{F}$ (closed under countable unions)</li>
+                </ol>
+            </div>
+
+            <h3>1.2.3 Set Operations on Events</h3>
+            <p>Events can be combined using standard set operations:</p>
+            <ul>
+                <li><strong>Union:</strong> $A \cup B$ (either A or B occurs)</li>
+                <li><strong>Intersection:</strong> $A \cap B$ (both A and B occur)</li>
+                <li><strong>Complement:</strong> $A^c$ (A does not occur)</li>
+                <li><strong>Difference:</strong> $A \setminus B = A \cap B^c$ (A occurs but not B)</li>
+            </ul>
+
+            <div class="interactive-viz">
+                <h3>Interactive: Set Operations</h3>
+                <div id="venn-diagram"></div>
+                <div class="controls">
+                    <button class="cta-button" onclick="showSetOperation('union')">A ∪ B (Union)</button>
+                    <button class="cta-button" onclick="showSetOperation('intersection')">A ∩ B (Intersection)</button>
+                    <button class="cta-button" onclick="showSetOperation('complement')">A<sup>c</sup> (Complement)</button>
+                    <button class="cta-button" onclick="showSetOperation('difference')">A \ B (Difference)</button>
+                </div>
+            </div>
+
+            <h2>1.3 Axioms of Probability</h2>
+            <p>
+                The modern axiomatic foundation of probability was established by Kolmogorov (1933).
+                These axioms provide a rigorous mathematical framework for reasoning about uncertainty.
+            </p>
+
+            <div class="info-box theorem">
+                <h4>Kolmogorov's Axioms</h4>
+                <p>A <strong>probability measure</strong> $P$ on a sample space $\Omega$ with σ-algebra $\mathcal{F}$ is a function $P: \mathcal{F} \to [0, 1]$ satisfying:</p>
+                <ol>
+                    <li><strong>Non-negativity:</strong> $P(A) \geq 0$ for all $A \in \mathcal{F}$</li>
+                    <li><strong>Normalization:</strong> $P(\Omega) = 1$</li>
+                    <li><strong>Countable additivity:</strong> For any countable collection of disjoint events $A_1, A_2, \ldots$:
+                        <div class="equation-block">
+                            $$P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i)$$
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <h3>1.3.1 Consequences of the Axioms</h3>
+            <p>Many useful properties follow directly from Kolmogorov's axioms:</p>
+
+            <div class="info-box theorem">
+                <h4>Theorem 1.1: Basic Properties</h4>
+                <ol>
+                    <li>$P(\emptyset) = 0$ (probability of impossible event)</li>
+                    <li>$P(A^c) = 1 - P(A)$ (complement rule)</li>
+                    <li>If $A \subseteq B$, then $P(A) \leq P(B)$ (monotonicity)</li>
+                    <li>$P(A \cup B) = P(A) + P(B) - P(A \cap B)$ (addition rule)</li>
+                </ol>
+            </div>
+
+            <div class="info-box example">
+                <h4>Proof of Complement Rule</h4>
+                <p>We have $\Omega = A \cup A^c$ and $A \cap A^c = \emptyset$. By axioms 2 and 3:</p>
+                <div class="equation-block">
+                    $$1 = P(\Omega) = P(A \cup A^c) = P(A) + P(A^c)$$
+                </div>
+                <p>Therefore, $P(A^c) = 1 - P(A)$. □</p>
+            </div>
+
+            <h3>1.3.2 Union Bound (Boole's Inequality)</h3>
+            <div class="info-box theorem">
+                <h4>Theorem 1.2: Union Bound</h4>
+                <p>For any events $A_1, A_2, \ldots, A_n$ (not necessarily disjoint):</p>
+                <div class="equation-block">
+                    $$P\left(\bigcup_{i=1}^{n} A_i\right) \leq \sum_{i=1}^{n} P(A_i)$$
+                </div>
+                <p>This is fundamental in ML for bounding error probabilities in multiple hypothesis testing.</p>
+            </div>
+
+            <h2>1.4 Conditional Probability</h2>
+            <p>
+                Conditional probability allows us to update our beliefs based on new evidence—the foundation
+                of Bayesian inference and many ML algorithms.
+            </p>
+
+            <div class="info-box definition">
+                <h4>Definition: Conditional Probability</h4>
+                <p>Given events $A$ and $B$ with $P(B) > 0$, the <strong>conditional probability</strong> of $A$ given $B$ is:</p>
+                <div class="equation-block">
+                    $$P(A \mid B) = \frac{P(A \cap B)}{P(B)}$$
+                </div>
+            </div>
+
+            <div class="interactive-viz">
+                <h3>Interactive: Conditional Probability Visualization</h3>
+                <p>Adjust the probabilities to see how conditional probability works:</p>
+                <div class="controls">
+                    <label>P(A) = <span id="prob-a-value">0.5</span></label>
+                    <input type="range" id="prob-a" min="0" max="1" step="0.05" value="0.5">
+                    <label>P(B) = <span id="prob-b-value">0.5</span></label>
+                    <input type="range" id="prob-b" min="0" max="1" step="0.05" value="0.5">
+                    <label>P(A ∩ B) = <span id="prob-ab-value">0.25</span></label>
+                    <input type="range" id="prob-ab" min="0" max="0.5" step="0.05" value="0.25">
+                </div>
+                <div id="conditional-prob-viz"></div>
+            </div>
+
+            <h3>1.4.1 Chain Rule</h3>
+            <div class="info-box theorem">
+                <h4>Theorem 1.3: Chain Rule (Product Rule)</h4>
+                <p>For events $A_1, A_2, \ldots, A_n$:</p>
+                <div class="equation-block">
+                    $$P(A_1 \cap A_2 \cap \cdots \cap A_n) = P(A_1) \cdot P(A_2 \mid A_1) \cdot P(A_3 \mid A_1 \cap A_2) \cdots P(A_n \mid A_1 \cap \cdots \cap A_{n-1})$$
+                </div>
+                <p>This is used extensively in probabilistic graphical models and autoregressive models.</p>
+            </div>
+
+            <h2>1.5 Independence</h2>
+            <div class="info-box definition">
+                <h4>Definition: Independence</h4>
+                <p>Events $A$ and $B$ are <strong>independent</strong> if:</p>
+                <div class="equation-block">
+                    $$P(A \cap B) = P(A) \cdot P(B)$$
+                </div>
+                <p>Equivalently (if $P(B) > 0$): $P(A \mid B) = P(A)$</p>
+            </div>
+
+            <div class="info-box warning">
+                <h4>Common Misconception</h4>
+                <p><strong>Independence ≠ Disjointness!</strong></p>
+                <p>If $A$ and $B$ are disjoint with positive probability, they are <em>dependent</em>:</p>
+                <div class="equation-block">
+                    $$P(A \mid B) = \frac{P(A \cap B)}{P(B)} = \frac{0}{P(B)} = 0 \neq P(A)$$
+                </div>
+            </div>
+
+            <div class="info-box definition">
+                <h4>Definition: Mutual Independence</h4>
+                <p>Events $A_1, \ldots, A_n$ are <strong>mutually independent</strong> if for every subset $I \subseteq \{1, \ldots, n\}$:</p>
+                <div class="equation-block">
+                    $$P\left(\bigcap_{i \in I} A_i\right) = \prod_{i \in I} P(A_i)$$
+                </div>
+            </div>
+
+            <h2>1.6 Bayes' Theorem</h2>
+            <p>
+                Bayes' theorem is the cornerstone of Bayesian statistics and machine learning. It provides
+                a principled way to update beliefs based on evidence.
+            </p>
+
+            <div class="info-box theorem">
+                <h4>Theorem 1.4: Bayes' Theorem</h4>
+                <p>For events $A$ and $B$ with $P(A), P(B) > 0$:</p>
+                <div class="equation-block">
+                    $$P(A \mid B) = \frac{P(B \mid A) \cdot P(A)}{P(B)}$$
+                </div>
+                <p>Where:</p>
+                <ul>
+                    <li>$P(A \mid B)$ is the <strong>posterior</strong> probability</li>
+                    <li>$P(B \mid A)$ is the <strong>likelihood</strong></li>
+                    <li>$P(A)$ is the <strong>prior</strong> probability</li>
+                    <li>$P(B)$ is the <strong>marginal likelihood</strong> or <strong>evidence</strong></li>
+                </ul>
+            </div>
+
+            <div class="info-box example">
+                <h4>Example 1.2: Medical Diagnosis with Bayes' Theorem</h4>
+                <p>A disease affects 1% of the population. A test for the disease has:</p>
+                <ul>
+                    <li>Sensitivity (true positive rate): 95%</li>
+                    <li>Specificity (true negative rate): 90%</li>
+                </ul>
+                <p>What is the probability a person has the disease given a positive test?</p>
+
+                <div class="solution">
+                    <p><strong>Solution:</strong></p>
+                    <p>Let $D$ = "has disease", $T^+$ = "tests positive"</p>
+                    <p>Given: $P(D) = 0.01$, $P(T^+ \mid D) = 0.95$, $P(T^- \mid D^c) = 0.90$</p>
+                    <p>We need: $P(D \mid T^+)$</p>
+
+                    <p>First, find $P(T^+)$ using the law of total probability:</p>
+                    <div class="equation-block">
+                        $$P(T^+) = P(T^+ \mid D)P(D) + P(T^+ \mid D^c)P(D^c)$$
+                        $$= 0.95 \times 0.01 + 0.10 \times 0.99 = 0.1085$$
+                    </div>
+
+                    <p>Now apply Bayes' theorem:</p>
+                    <div class="equation-block">
+                        $$P(D \mid T^+) = \frac{P(T^+ \mid D) \cdot P(D)}{P(T^+)} = \frac{0.95 \times 0.01}{0.1085} \approx 0.0876$$
+                    </div>
+
+                    <p>So only about 8.76% of people who test positive actually have the disease!</p>
+                </div>
+            </div>
+
+            <div class="interactive-viz">
+                <h3>Interactive: Bayesian Inference Simulator</h3>
+                <p>Explore how prior, likelihood, and evidence affect the posterior:</p>
+                <div id="bayes-viz"></div>
+                <div class="controls">
+                    <label>Prior P(H) = <span id="prior-value">0.5</span></label>
+                    <input type="range" id="prior" min="0.01" max="0.99" step="0.01" value="0.5">
+                    <label>Likelihood P(E|H) = <span id="likelihood-value">0.8</span></label>
+                    <input type="range" id="likelihood" min="0.01" max="0.99" step="0.01" value="0.8">
+                    <label>P(E|¬H) = <span id="likelihood-not-value">0.2</span></label>
+                    <input type="range" id="likelihood-not" min="0.01" max="0.99" step="0.01" value="0.2">
+                    <button class="cta-button" onclick="updateBayesViz()">Update</button>
+                </div>
+            </div>
+
+            <h2>1.7 Law of Total Probability</h2>
+            <div class="info-box theorem">
+                <h4>Theorem 1.5: Law of Total Probability</h4>
+                <p>If $B_1, B_2, \ldots, B_n$ is a partition of $\Omega$ (i.e., mutually exclusive and exhaustive), then for any event $A$:</p>
+                <div class="equation-block">
+                    $$P(A) = \sum_{i=1}^{n} P(A \mid B_i) P(B_i)$$
+                </div>
+                <p>This is essential for marginalization in probabilistic models.</p>
+            </div>
+
+            <h2>1.8 Python Implementation</h2>
+            <p>Let's implement key concepts using Python:</p>
+
+            <div class="code-header">Python: Probability Foundations</div>
+            <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+class ProbabilitySpace:
+    """
+    A class to represent a finite probability space.
+    """
+    def __init__(self, outcomes, probabilities=None):
+        """
+        Parameters:
+        -----------
+        outcomes : list
+            List of possible outcomes
+        probabilities : list or None
+            Probability of each outcome (uniform if None)
+        """
+        self.outcomes = outcomes
+        if probabilities is None:
+            # Uniform distribution
+            self.probabilities = np.ones(len(outcomes)) / len(outcomes)
+        else:
+            assert len(probabilities) == len(outcomes), "Length mismatch"
+            assert np.allclose(sum(probabilities), 1.0), "Must sum to 1"
+            assert all(p >= 0 for p in probabilities), "Must be non-negative"
+            self.probabilities = np.array(probabilities)
+
+        # Create probability dictionary
+        self.prob_dict = dict(zip(outcomes, self.probabilities))
+
+    def P(self, event):
+        """
+        Calculate probability of an event.
+
+        Parameters:
+        -----------
+        event : set or list
+            Event (subset of outcomes)
+
+        Returns:
+        --------
+        float : Probability of the event
+        """
+        if callable(event):
+            # Event defined by a function
+            event = [o for o in self.outcomes if event(o)]
+
+        prob = sum(self.prob_dict.get(outcome, 0) for outcome in event)
+        return prob
+
+    def conditional_prob(self, A, B):
+        """
+        Calculate P(A|B) = P(A ∩ B) / P(B)
+        """
+        A_set = set(A) if not callable(A) else set([o for o in self.outcomes if A(o)])
+        B_set = set(B) if not callable(B) else set([o for o in self.outcomes if B(o)])
+
+        P_B = self.P(B_set)
+        if P_B == 0:
+            raise ValueError("P(B) = 0, conditional probability undefined")
+
+        A_and_B = A_set.intersection(B_set)
+        return self.P(A_and_B) / P_B
+
+
+# Example 1: Fair die
+die = ProbabilitySpace(outcomes=[1, 2, 3, 4, 5, 6])
+
+# P(roll is even)
+even = {2, 4, 6}
+print(f"P(even) = {die.P(even)}")  # 0.5
+
+# P(roll > 4)
+greater_than_4 = lambda x: x > 4
+print(f"P(> 4) = {die.P(greater_than_4)}")  # 0.333...
+
+# Conditional probability: P(even | > 3)
+print(f"P(even | > 3) = {die.conditional_prob({2, 4, 6}, {4, 5, 6})}")  # 0.333...
+
+
+# Example 2: Medical diagnosis (Bayes' theorem)
+def bayes_theorem(prior, likelihood, evidence):
+    """
+    Calculate posterior using Bayes' theorem.
+
+    P(H|E) = P(E|H) * P(H) / P(E)
+    """
+    posterior = (likelihood * prior) / evidence
+    return posterior
+
+# Disease example
+P_D = 0.01  # Prior: 1% have disease
+P_pos_given_D = 0.95  # Sensitivity
+P_pos_given_not_D = 0.10  # False positive rate
+
+# Law of total probability for P(positive test)
+P_pos = P_pos_given_D * P_D + P_pos_given_not_D * (1 - P_D)
+
+# Posterior: P(disease | positive test)
+P_D_given_pos = bayes_theorem(P_D, P_pos_given_D, P_pos)
+print(f"\nP(disease | positive test) = {P_D_given_pos:.4f}")
+
+
+# Example 3: Visualizing Bayes' theorem
+def visualize_bayes_update(prior_alpha=1, prior_beta=1,
+                           successes=7, failures=3):
+    """
+    Visualize Bayesian updating with Beta-Binomial conjugacy.
+    """
+    x = np.linspace(0, 1, 1000)
+
+    # Prior
+    prior = stats.beta(prior_alpha, prior_beta)
+
+    # Posterior (Beta is conjugate prior for Binomial)
+    posterior = stats.beta(prior_alpha + successes,
+                           prior_beta + failures)
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(x, prior.pdf(x), label='Prior', linewidth=2)
+    plt.plot(x, posterior.pdf(x), label='Posterior', linewidth=2)
+    plt.axvline(successes/(successes+failures),
+                color='red', linestyle='--',
+                label=f'MLE = {successes/(successes+failures):.2f}')
+    plt.xlabel('θ (probability of success)')
+    plt.ylabel('Density')
+    plt.title('Bayesian Update: Prior → Posterior')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.show()
+
+# Uncomment to visualize:
+# visualize_bayes_update()
+
+
+# Example 4: Monte Carlo simulation for probability estimation
+def monte_carlo_probability(event_function, num_samples=100000):
+    """
+    Estimate probability using Monte Carlo simulation.
+
+    Parameters:
+    -----------
+    event_function : callable
+        Function that returns True if event occurs
+    num_samples : int
+        Number of Monte Carlo samples
+    """
+    successes = sum(1 for _ in range(num_samples) if event_function())
+    return successes / num_samples
+
+# Example: Probability that sum of 2 dice >= 10
+def two_dice_sum_geq_10():
+    die1 = np.random.randint(1, 7)
+    die2 = np.random.randint(1, 7)
+    return (die1 + die2) >= 10
+
+prob_estimate = monte_carlo_probability(two_dice_sum_geq_10)
+theoretical = 6/36  # {(4,6), (5,5), (5,6), (6,4), (6,5), (6,6)}
+print(f"\nMonte Carlo estimate: {prob_estimate:.4f}")
+print(f"Theoretical probability: {theoretical:.4f}")
+</code></pre>
+
+            <h2>1.9 Exercises</h2>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <h3>Exercise 1.1</h3>
+                    <span class="exercise-difficulty easy">Easy</span>
+                </div>
+                <p>
+                    Prove that for any events $A$ and $B$:
+                    $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+                </p>
+                <button class="solution-toggle">Show Solution</button>
+                <div class="solution">
+                    <p><strong>Proof:</strong></p>
+                    <p>Note that $A \cup B = A \cup (B \setminus A)$ where $A$ and $B \setminus A$ are disjoint.</p>
+                    <p>By countable additivity:</p>
+                    <div class="equation-block">
+                        $$P(A \cup B) = P(A) + P(B \setminus A)$$
+                    </div>
+                    <p>Also, $B = (A \cap B) \cup (B \setminus A)$ where the sets are disjoint, so:</p>
+                    <div class="equation-block">
+                        $$P(B) = P(A \cap B) + P(B \setminus A)$$
+                        $$P(B \setminus A) = P(B) - P(A \cap B)$$
+                    </div>
+                    <p>Substituting back:</p>
+                    <div class="equation-block">
+                        $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+                    </div>
+                    <p>□</p>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <h3>Exercise 1.2</h3>
+                    <span class="exercise-difficulty medium">Medium</span>
+                </div>
+                <p>
+                    Show that if events $A$ and $B$ are independent, then $A$ and $B^c$ are also independent.
+                </p>
+                <button class="solution-toggle">Show Solution</button>
+                <div class="solution">
+                    <p><strong>Proof:</strong></p>
+                    <p>We need to show that $P(A \cap B^c) = P(A) \cdot P(B^c)$.</p>
+                    <p>Note that $A = (A \cap B) \cup (A \cap B^c)$ where the sets are disjoint.</p>
+                    <div class="equation-block">
+                        $$P(A) = P(A \cap B) + P(A \cap B^c)$$
+                    </div>
+                    <p>Since $A$ and $B$ are independent: $P(A \cap B) = P(A) \cdot P(B)$</p>
+                    <div class="equation-block">
+                        $$P(A \cap B^c) = P(A) - P(A \cap B) = P(A) - P(A)P(B)$$
+                        $$= P(A)(1 - P(B)) = P(A) \cdot P(B^c)$$
+                    </div>
+                    <p>Therefore, $A$ and $B^c$ are independent. □</p>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <h3>Exercise 1.3</h3>
+                    <span class="exercise-difficulty hard">Hard</span>
+                </div>
+                <p>
+                    (Monty Hall Problem) A game show has 3 doors. Behind one is a car, behind the others are goats.
+                    You pick door 1. The host (who knows what's behind each door) opens door 3, revealing a goat.
+                    Should you switch to door 2?
+                </p>
+                <button class="solution-toggle">Show Solution</button>
+                <div class="solution">
+                    <p><strong>Solution using Bayes' Theorem:</strong></p>
+                    <p>Let $C_i$ = "car is behind door $i$", $H_3$ = "host opens door 3"</p>
+                    <p>Initially: $P(C_1) = P(C_2) = P(C_3) = 1/3$</p>
+                    <p>We need: $P(C_2 \mid H_3)$ vs $P(C_1 \mid H_3)$</p>
+
+                    <p>Likelihoods:</p>
+                    <ul>
+                        <li>$P(H_3 \mid C_1) = 1/2$ (host can open 2 or 3)</li>
+                        <li>$P(H_3 \mid C_2) = 1$ (host must open 3)</li>
+                        <li>$P(H_3 \mid C_3) = 0$ (host won't reveal car)</li>
+                    </ul>
+
+                    <p>By law of total probability:</p>
+                    <div class="equation-block">
+                        $$P(H_3) = \frac{1}{2} \cdot \frac{1}{3} + 1 \cdot \frac{1}{3} + 0 \cdot \frac{1}{3} = \frac{1}{2}$$
+                    </div>
+
+                    <p>By Bayes' theorem:</p>
+                    <div class="equation-block">
+                        $$P(C_1 \mid H_3) = \frac{P(H_3 \mid C_1) P(C_1)}{P(H_3)} = \frac{(1/2)(1/3)}{1/2} = \frac{1}{3}$$
+                        $$P(C_2 \mid H_3) = \frac{P(H_3 \mid C_2) P(C_2)}{P(H_3)} = \frac{(1)(1/3)}{1/2} = \frac{2}{3}$$
+                    </div>
+
+                    <p><strong>Conclusion:</strong> You should switch! Switching doubles your probability of winning. □</p>
+                </div>
+            </div>
+
+            <h2>1.10 Quiz</h2>
+            <div class="quiz-container">
+                <div class="quiz-question">Which of the following is NOT true about probability?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false" data-explanation="This is true by the complement rule.">
+                        P(A) + P(A<sup>c</sup>) = 1
+                    </div>
+                    <div class="quiz-option" data-correct="true" data-explanation="Correct! Independent events have P(A∩B) = P(A)P(B), while disjoint events have P(A∩B) = 0.">
+                        If A and B are independent, they must be disjoint
+                    </div>
+                    <div class="quiz-option" data-correct="false" data-explanation="This is the definition of independence.">
+                        P(A∩B) = P(A)P(B) if A and B are independent
+                    </div>
+                    <div class="quiz-option" data-correct="false" data-explanation="This follows from the axioms.">
+                        0 ≤ P(A) ≤ 1 for any event A
+                    </div>
+                </div>
+            </div>
+
+            <h2>1.11 Further Reading and Resources</h2>
+            <div class="info-box example">
+                <h4>Recommended Resources</h4>
+                <ul>
+                    <li><strong>Books:</strong>
+                        <ul>
+                            <li>"Probability Theory: The Logic of Science" by E.T. Jaynes</li>
+                            <li>"A First Course in Probability" by Sheldon Ross</li>
+                            <li>"Probability and Random Processes" by Grimmett and Stirzaker</li>
+                        </ul>
+                    </li>
+                    <li><strong>Online Courses:</strong>
+                        <ul>
+                            <li><a href="https://ocw.mit.edu/6-041" target="_blank">MIT 6.041: Probabilistic Systems Analysis</a></li>
+                            <li><a href="https://seeing-theory.brown.edu/" target="_blank">Seeing Theory (Brown University)</a></li>
+                        </ul>
+                    </li>
+                    <li><strong>Papers:</strong>
+                        <ul>
+                            <li>Kolmogorov, A.N. (1933). "Foundations of the Theory of Probability"</li>
+                        </ul>
+                    </li>
+                    <li><strong>ML Applications:</strong>
+                        <ul>
+                            <li>"Pattern Recognition and Machine Learning" by Christopher Bishop (Chapter 1)</li>
+                            <li>"Deep Learning" by Goodfellow et al. (Chapter 3)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="02-random-variables.html" class="cta-button">Next: Chapter 2 - Random Variables →</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Statistics for ML/DL. A comprehensive learning resource.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/probability-viz.js"></script>
+</body>
+</html>
