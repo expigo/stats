@@ -4,6 +4,7 @@ import 'katex/dist/katex.min.css';
 import { MarkovChainViz } from '../../components/visualizations/MarkovChainViz';
 import { HMMVisualization } from '../../components/visualizations/HMMVisualization';
 import { Code } from 'lucide-react';
+import { ChapterCompletionButton } from '../../components/chapter/ChapterCompletionButton';
 
 export const MarkovModels = () => {
   const [showSolution1, setShowSolution1] = useState(false);
@@ -591,6 +592,8 @@ print(f"Stationary distribution: {pi}")
           </ul>
         </div>
       </section>
+
+      <ChapterCompletionButton chapterId="markov-models" />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { BayesianUpdateViz } from '../../components/visualizations/BayesianUpdat
 import { MCMCVisualization } from '../../components/visualizations/MCMCVisualization';
 import { PriorPosteriorViz } from '../../components/visualizations/PriorPosteriorViz';
 import { Code } from 'lucide-react';
+import { ChapterCompletionButton } from '../../components/chapter/ChapterCompletionButton';
 
 export const BayesianProbability = () => {
   const [showSolution1, setShowSolution1] = useState(false);
@@ -524,6 +525,8 @@ print(f"P(B > A) = {prob_B_better:.4f}")
           </ul>
         </div>
       </section>
+
+      <ChapterCompletionButton chapterId="bayesian-probability" />
     </div>
   );
 };

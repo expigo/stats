@@ -3,6 +3,7 @@ import { InlineMath, BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 import Plot from 'react-plotly.js';
 import { Code, TrendingUp, AlertCircle } from 'lucide-react';
+import { ChapterCompletionButton } from '../../components/chapter/ChapterCompletionButton';
 
 export const StatisticalLearning = () => {
   const [showSolution1, setShowSolution1] = useState(false);
@@ -661,6 +662,8 @@ print("\\nAll demonstrations complete! Check generated plots.")
           </ul>
         </div>
       </section>
+
+      <ChapterCompletionButton chapterId="statistical-learning" />
     </div>
   );
 };

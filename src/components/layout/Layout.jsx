@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { BarChart3, Home, Book, ExternalLink, Menu, X } from 'lucide-react';
+import { BarChart3, Home, Book, ExternalLink, Menu, X, TrendingUp } from 'lucide-react';
 import { useState } from 'react';
 import './Layout.css';
 
@@ -10,6 +10,7 @@ export const Layout = ({ children }) => {
   const navItems = [
     { path: '/', label: 'Home', icon: Home },
     { path: '/chapters', label: 'Chapters', icon: Book },
+    { path: '/progress', label: 'Progress', icon: TrendingUp },
     { path: '/resources', label: 'Resources', icon: ExternalLink },
   ];
 

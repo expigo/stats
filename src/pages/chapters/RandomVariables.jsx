@@ -1,3 +1,5 @@
+import { ChapterCompletionButton } from '../../components/chapter/ChapterCompletionButton';
+
 export const RandomVariables = () => {
   return (
     <div className="chapter-content fade-in">
@@ -11,6 +13,8 @@ export const RandomVariables = () => {
         <p>This chapter is being migrated from the static version. Check back soon!</p>
         <p>In the meantime, check out the new Bayesian Probability and Markov Models chapters.</p>
       </div>
+
+      <ChapterCompletionButton chapterId="random-variables" />
     </div>
   );
 };

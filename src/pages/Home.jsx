@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
-import { BarChart3, Code, Book, Brain, Target, TrendingUp, ArrowRight } from 'lucide-react';
+import { BarChart3, Code, Book, Brain, Target, TrendingUp, ArrowRight, Award } from 'lucide-react';
+import { useProgress } from '../context/ProgressContext';
 
 export const Home = () => {
+  const { progress, getOverallProgress } = useProgress();
+  const overallProgress = getOverallProgress();
   const features = [
     {
       icon: '📈',
@@ -79,6 +82,40 @@ export const Home = () => {
           Start Learning
         </Link>
       </div>
+
+      {/* Progress Widget */}
+      {overallProgress > 0 && (
+        <section style={{ marginTop: '2rem' }}>
+          <div className="info-box example" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+              <div>
+                <h4 style={{ color: 'white', marginBottom: '0.5rem' }}>Your Learning Journey</h4>
+                <p style={{ margin: 0, fontSize: '1.1rem' }}>
+                  {progress.chaptersCompleted.length} of 5 chapters completed
+                  {progress.achievements.length > 0 && ` • ${progress.achievements.length} achievement${progress.achievements.length > 1 ? 's' : ''} unlocked`}
+                </p>
+              </div>
+              <Link
+                to="/progress"
+                className="cta-button"
+                style={{ background: 'white', color: '#764ba2', border: 'none' }}
+              >
+                <Award size={20} />
+                View Progress
+              </Link>
+            </div>
+            <div style={{ marginTop: '1rem', background: 'rgba(255,255,255,0.2)', borderRadius: '8px', height: '12px', overflow: 'hidden' }}>
+              <div style={{
+                width: `${overallProgress}%`,
+                height: '100%',
+                background: 'white',
+                transition: 'width 0.5s ease',
+                borderRadius: '8px'
+              }}></div>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section>
         <h2 className="text-center">Why This Course?</h2>
