@@ -1,286 +1,326 @@
-# 📊 Statistics for Machine Learning & Deep Learning
+# 📊 Statistics for Machine Learning & Deep Learning - React Edition
 
-A comprehensive, rigorous statistics course designed for aspiring researchers in Machine Learning, Deep Learning, and Data Science. This interactive learning platform combines theoretical foundations with practical applications, featuring extensive visualizations, Python code examples, exercises, and quizzes.
+> **A comprehensive, interactive statistics course built with React, featuring rigorous theory, extensive visualizations, and practical Python implementations using statsmodels.**
 
-## 🎯 Features
+## 🎯 What's New in React Edition
 
-- **Rigorous Theory**: Deep dive into mathematical foundations with proofs and derivations
-- **Interactive Visualizations**: Hundreds of interactive plots using Plotly.js to build intuition
-- **Python Implementation**: Production-ready code using NumPy, SciPy, Pandas, and scikit-learn
-- **ML/DL Focus**: Direct connections to modern machine learning and deep learning applications
-- **Exercises & Quizzes**: Practice problems with detailed solutions and interactive quizzes
-- **Curated Resources**: Links to papers, books, and courses for deeper exploration
+This modernized version brings significant improvements:
+
+- **⚛️ React 18** - Modern, component-based UI for better interactivity
+- **📈 statsmodels Integration** - Extensive use of statsmodels for statistical analysis
+- **🔄 Comprehensive Bayesian Chapter** - Complete treatment of Bayesian inference, MCMC, and applications
+- **🎲 Markov Models Chapter** - From Markov chains to Hidden Markov Models with real applications
+- **📦 uv Package Manager** - Modern, fast Python package management
+- **🎨 Interactive Visualizations** - React-powered visualizations with Plotly.js
+
+## 🚀 Quick Start
+
+### Frontend (React App)
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+Visit `http://localhost:5173` to see the application.
+
+### Python Examples
+
+```bash
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Sync Python dependencies
+uv sync
+
+# Run Bayesian examples
+uv run python python_examples/bayesian/bayesian_inference_statsmodels.py
+
+# Run Markov models examples
+uv run python python_examples/markov_models/markov_chains_hmm_statsmodels.py
+```
 
 ## 📚 Course Content
 
-### Chapter 1: Foundations of Probability Theory
-- Sample spaces and events
-- Axioms of probability (Kolmogorov)
-- Conditional probability and independence
-- Bayes' theorem
-- Law of total probability
-- **ML Applications**: Bayesian inference, probabilistic models
+### ✅ Chapter 1: Foundations of Probability Theory
+- Sample spaces and σ-algebras
+- Kolmogorov's axioms
+- Conditional probability & Bayes' theorem
+- **Interactive**: Venn diagrams, Bayesian update simulator, CLT demo
 
-### Chapter 2: Random Variables & Distributions
-- Discrete and continuous random variables
-- Common distributions (Normal, Binomial, Poisson, Beta, etc.)
-- Expectation, variance, and moments
+### ✅ Chapter 2: Random Variables & Distributions
+- Discrete & continuous distributions
 - Moment generating functions
 - Multivariate distributions
-- **ML Applications**: Weight initialization, VAEs, Gaussian processes
+- **Interactive**: Distribution explorers with parameter sliders
 
-### Chapter 3: Statistical Inference
-- Point estimation (MLE, MoM)
-- Properties of estimators (bias, consistency, efficiency)
-- Confidence intervals
-- Bootstrap methods
-- Asymptotic theory
-- **ML Applications**: Parameter estimation, model fitting
+### 🆕 Chapter 3: Bayesian Probability *(NEW!)*
+- **Comprehensive Bayesian inference framework**
+- **Conjugate priors** (Beta-Binomial, Normal-Normal, etc.)
+- **MCMC methods** (Metropolis-Hastings, Gibbs sampling)
+- **Variational inference** (ELBO, connection to VAEs)
+- **Hierarchical models** (partial pooling)
+- **Model comparison** (Bayes factors, WAIC)
+- **Applications**: Bayesian neural networks, Gaussian processes
+- **Python**: Full implementation with statsmodels and PyMC
 
-### Chapter 4: Hypothesis Testing
-- Null and alternative hypotheses
-- Type I and Type II errors
-- Common tests (t-test, χ², ANOVA)
-- p-values and significance
-- Multiple testing correction
-- **ML Applications**: A/B testing, model comparison
+### 🆕 Chapter 4: Markov Models *(NEW!)*
+- **Discrete-time Markov chains**
+- **Stationary distributions** (eigenvector computation)
+- **Hidden Markov Models (HMM)**
+  - Forward algorithm
+  - Viterbi algorithm
+  - Baum-Welch (EM for HMMs)
+- **Markov Switching Models** with statsmodels
+- **Applications**: Finance (regime switching), NLP, sequence modeling
+- **Python**: Complete implementations with statsmodels, hmmlearn
 
-### Chapter 5: Regression Analysis
-- Simple and multiple linear regression
-- Ordinary least squares
-- Regularization (Ridge, Lasso, Elastic Net)
-- Generalized linear models
-- **ML Applications**: Foundation of supervised learning
+## 🔬 Why This Course?
 
-### Chapter 6: Bayesian Statistics
-- Bayesian inference framework
-- Prior, likelihood, and posterior
-- Conjugate priors
-- MCMC methods
-- Bayesian model comparison
-- **ML Applications**: Bayesian neural networks, probabilistic programming
+### For ML/DL Researchers
 
-### Chapter 7: Multivariate Statistics
-- Multivariate normal distribution
-- Principal Component Analysis (PCA)
-- Factor analysis
-- Canonical correlation
-- **ML Applications**: Dimensionality reduction, feature extraction
+Every concept connects directly to modern machine learning:
 
-### Chapter 8: Time Series Analysis
-- Stationarity and autocorrelation
-- ARMA and ARIMA models
-- Seasonal decomposition
-- Forecasting methods
-- **ML Applications**: Sequential models, RNNs, LSTMs
+- **Bayesian Methods** → Bayesian neural networks, uncertainty quantification, VAEs
+- **Markov Models** → RNNs, LSTMs, reinforcement learning (MDPs)
+- **statsmodels** → Production-ready statistical modeling
+- **Rigorous Theory** → Understanding why algorithms work
 
-### Chapter 9: Statistical Learning Theory
-- Bias-variance tradeoff
-- PAC learning framework
-- VC dimension
-- Information theory (Entropy, KL divergence)
-- Concentration inequalities
-- **ML Applications**: Model selection, generalization bounds
+### Key Features
 
-### Chapter 10: Experimental Design & Causal Inference
-- Design of experiments
-- A/B testing
-- Causal inference frameworks
-- Propensity score matching
-- **ML Applications**: Treatment effect estimation, fairness
+| Feature | Description |
+|---------|-------------|
+| 📊 Interactive Viz | React + Plotly.js for dynamic, responsive visualizations |
+| 🐍 Production Code | NumPy, SciPy, Pandas, **statsmodels**, PyMC |
+| 📈 Real Applications | Finance, NLP, time series, causal inference |
+| 🎓 Rigorous Theory | Proofs, derivations, and mathematical foundations |
+| ✏️ Exercises | Practice problems with detailed solutions |
+| 🔗 Curated Resources | Papers, books, and courses for deeper learning |
 
-## 🚀 Getting Started
+## 💻 Tech Stack
 
-### Prerequisites
+### Frontend
+- **React 18** - Component-based UI
+- **Vite** - Lightning-fast build tool
+- **Plotly.js** - Interactive plotting
+- **KaTeX** - Beautiful math rendering
+- **React Router** - Client-side routing
+- **Lucide React** - Modern icons
 
-- Python 3.8 or higher
-- Modern web browser (Chrome, Firefox, Safari, or Edge)
-- Basic understanding of calculus and linear algebra
-
-### Installation
-
-1. **Clone the repository**:
-   ```bash
-   git clone <repository-url>
-   cd stats
-   ```
-
-2. **Install Python dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Open the website**:
-   Simply open `index.html` in your web browser, or use a local server:
-   ```bash
-   python -m http.server 8000
-   ```
-   Then navigate to `http://localhost:8000`
-
-### Running Python Examples
-
-Navigate to the `python-examples` directory and run any example:
-
-```bash
-cd python-examples
-python 01_probability_basics.py
-python 02_distributions.py
-```
-
-These scripts will:
-- Run comprehensive examples
-- Generate visualizations in the `visualizations/` directory
-- Print detailed explanations and results
+### Python
+- **uv** - Modern Python package manager (10-100x faster than pip!)
+- **statsmodels** - Statistical modeling and hypothesis testing
+- **PyMC** - Probabilistic programming for Bayesian inference
+- **arviz** - Bayesian inference diagnostics
+- **hmmlearn** - Hidden Markov Models
+- **networkx** - Graph analysis for Markov chains
+- **NumPy, SciPy, Pandas** - Scientific computing stack
 
 ## 📂 Project Structure
 
 ```
 stats/
-├── index.html                 # Main landing page
-├── chapters/                  # Course chapters
-│   ├── 01-probability-foundations.html
-│   ├── 02-random-variables.html
-│   └── ...
-├── css/
-│   └── style.css             # Styling for all pages
-├── js/
-│   ├── main.js               # Core JavaScript functionality
-│   ├── clt-demo.js           # Central Limit Theorem demo
-│   ├── probability-viz.js    # Chapter 1 visualizations
-│   └── distributions-viz.js  # Chapter 2 visualizations
-├── python-examples/          # Comprehensive Python examples
-│   ├── 01_probability_basics.py
-│   ├── 02_distributions.py
-│   └── ...
-├── visualizations/           # Generated plots (from Python examples)
-├── exercises/                # Additional exercises
-├── quizzes/                  # Interactive quizzes
-├── data/                     # Sample datasets
-├── requirements.txt          # Python dependencies
-└── README.md                 # This file
+├── src/                          # React frontend
+│   ├── components/
+│   │   ├── layout/              # Navigation, layout
+│   │   ├── visualizations/      # Plotly visualizations
+│   │   └── common/              # Reusable components
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── chapters/
+│   │   │   ├── BayesianProbability.jsx  # NEW!
+│   │   │   ├── MarkovModels.jsx         # NEW!
+│   │   │   └── ...
+│   │   └── ...
+│   └── styles/
+│
+├── python_examples/             # Python implementations
+│   ├── bayesian/
+│   │   └── bayesian_inference_statsmodels.py  # NEW!
+│   ├── markov_models/
+│   │   └── markov_chains_hmm_statsmodels.py   # NEW!
+│   └── utils/
+│
+├── pyproject.toml              # Python dependencies (uv)
+├── package.json                # Node dependencies
+├── vite.config.js              # Vite configuration
+└── README.md                   # This file
 ```
 
-## 💻 Technology Stack
+## 🎓 Learning Path
 
-### Frontend
-- **HTML5/CSS3**: Modern, responsive design
-- **JavaScript (ES6+)**: Interactive elements and visualizations
-- **Plotly.js**: Interactive plotting library
-- **MathJax**: Beautiful LaTeX rendering
-- **Prism.js**: Syntax highlighting for code
+### Beginner Track
+1. Chapter 1: Probability Foundations
+2. Chapter 2: Random Variables & Distributions
 
-### Backend/Computation
-- **Python 3.8+**: Primary language for examples
-- **NumPy**: Numerical computing
-- **SciPy**: Scientific computing and statistics
-- **Matplotlib/Seaborn**: Static visualizations
-- **Pandas**: Data manipulation
+### Intermediate Track (ML Focus)
+3. **Chapter 3: Bayesian Probability** ⭐ NEW!
+4. **Chapter 4: Markov Models** ⭐ NEW!
 
-## 📖 How to Use This Course
+### Advanced Track (Research)
+5. Statistical Learning Theory
+6. Experimental Design & Causal Inference
 
-### For Self-Study
+## 📝 Python Examples
 
-1. **Start with Chapter 1** and progress sequentially
-2. **Read the theory** carefully, working through the proofs
-3. **Interact with visualizations** to build intuition
-4. **Run Python code examples** to see concepts in action
-5. **Complete exercises** before checking solutions
-6. **Take quizzes** to test understanding
-7. **Explore linked resources** for deeper knowledge
+### Bayesian Inference
 
-### For Instructors
+```python
+from bayesian import BayesianLinearRegression
 
-This material can be used as:
-- **Primary course content** for a statistics course
-- **Supplementary material** for ML/AI courses
-- **Reference resource** for students
-- **Interactive demonstrations** in lectures
+# Fit Bayesian linear regression
+blr = BayesianLinearRegression(noise_precision=4.0)
+blr.fit(X, y)
 
-Feel free to adapt and extend the content for your needs.
+# Make predictions with uncertainty
+y_pred, y_std = blr.predict(X_test, return_std=True)
 
-## 🎓 Learning Outcomes
+# Sample from posterior
+posterior_samples = blr.sample_parameters(n_samples=1000)
+```
 
-By completing this course, you will be able to:
+### Markov Chains
 
-1. ✅ Understand and apply rigorous probability theory
-2. ✅ Work confidently with common probability distributions
-3. ✅ Perform statistical inference and hypothesis testing
-4. ✅ Understand the theoretical foundations of machine learning
-5. ✅ Implement statistical methods in Python
-6. ✅ Interpret and apply statistical concepts in ML/DL research
-7. ✅ Make principled decisions based on data and uncertainty
+```python
+from markov_models import MarkovChain
 
-## 📚 Recommended Textbooks
+# Define transition matrix
+P = np.array([[0.7, 0.3], [0.4, 0.6]])
+mc = MarkovChain(P, state_names=["Sunny", "Rainy"])
 
-- **Probability Theory**:
-  - "Probability Theory: The Logic of Science" by E.T. Jaynes
-  - "A First Course in Probability" by Sheldon Ross
+# Compute stationary distribution
+pi = mc.stationary_distribution()
 
-- **Statistics**:
-  - "All of Statistics" by Larry Wasserman
-  - "Statistical Inference" by Casella & Berger
+# Simulate paths
+path = mc.simulate(n_steps=100)
 
-- **Machine Learning**:
-  - "Pattern Recognition and Machine Learning" by Christopher Bishop
-  - "Deep Learning" by Goodfellow, Bengio, and Courville
-  - "The Elements of Statistical Learning" by Hastie, Tibshirani, and Friedman
+# Mean first passage time
+mfpt = mc.mean_first_passage_time(start=0, end=1)
+```
 
-## 🔗 Online Resources
+### Markov Switching Models
 
-- [MIT OpenCourseWare - Probability](https://ocw.mit.edu/6-041)
-- [Seeing Theory (Brown University)](https://seeing-theory.brown.edu/)
-- [Stanford CS229: Machine Learning](http://cs229.stanford.edu/)
-- [Fast.ai - Practical Deep Learning](https://www.fast.ai/)
+```python
+from statsmodels.tsa.regime_switching import MarkovRegression
+
+# Fit regime-switching model
+mod = MarkovRegression(data, k_regimes=2, trend='c')
+res = mod.fit()
+
+# Get smoothed regime probabilities
+smoothed_probs = res.smoothed_marginal_probabilities
+```
+
+## 🔧 Development
+
+### Run Tests
+
+```bash
+# Python tests
+uv run pytest
+
+# Type checking
+uv run mypy python_examples/
+
+# Linting
+uv run ruff check python_examples/
+```
+
+### Code Formatting
+
+```bash
+# Format Python code
+uv run black python_examples/
+
+# Format React code
+npm run lint
+```
+
+## 📊 Visualizations
+
+All Python examples generate publication-quality visualizations:
+
+- `visualizations/bayesian_linear_regression.png`
+- `visualizations/bayesian_model_comparison.png`
+- `visualizations/hierarchical_bayesian_model.png`
+- `visualizations/markov_chain_analysis.png`
+- `visualizations/hidden_markov_model.png`
+- `visualizations/markov_switching_regression.png`
+- `visualizations/financial_regime_switching.png`
+
+## 📚 Recommended Reading
+
+### Bayesian Methods
+- Gelman et al. (2020). "Bayesian Data Analysis" (3rd ed.)
+- Murphy, Kevin (2022). "Probabilistic Machine Learning: Advanced Topics"
+- McElreath, Richard (2020). "Statistical Rethinking"
+
+### Markov Models
+- Ross, Sheldon (2014). "Introduction to Probability Models"
+- Rabiner, Lawrence (1989). "A Tutorial on Hidden Markov Models"
+- Hamilton, James (1994). "Time Series Analysis" (Markov switching models)
+
+### Machine Learning
+- Bishop, Christopher (2006). "Pattern Recognition and Machine Learning"
+- Goodfellow et al. (2016). "Deep Learning"
+- Hastie et al. (2009). "The Elements of Statistical Learning"
 
 ## 🤝 Contributing
 
-Contributions are welcome! Here's how you can help:
+Contributions are welcome! Areas where you can help:
 
-1. **Report bugs** or suggest improvements via issues
-2. **Add new examples** or visualizations
-3. **Improve explanations** or fix typos
-4. **Translate content** to other languages
-5. **Create additional exercises** or quizzes
+- 🎨 Additional interactive visualizations
+- 📝 More exercises and solutions
+- 🐛 Bug fixes and improvements
+- 📚 Additional chapters
+- 🌐 Translations
 
-Please ensure:
-- Code follows PEP 8 style guidelines
-- Mathematical notation is clear and consistent
-- Visualizations are informative and aesthetically pleasing
-- All claims are backed by theory or empirical evidence
+## 📄 License
 
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License - see LICENSE file for details.
 
 ## 🙏 Acknowledgments
 
-- Inspired by excellent resources from MIT, Stanford, and Brown University
-- Built with modern web technologies and Python scientific computing stack
-- Special thanks to the open-source community for amazing tools
-
-## 📧 Contact
-
-For questions, suggestions, or collaboration opportunities, please open an issue on GitHub.
-
----
-
-**Happy Learning! May the posterior be with you.** 📊🎓
+- Built with modern web and data science technologies
+- Inspired by excellent courses from MIT, Stanford, and Brown University
+- Special thanks to the statsmodels, PyMC, and React communities
 
 ## 🌟 Star History
 
-If you find this resource helpful, please consider giving it a star! It helps others discover this project.
+If this resource helps your learning journey, please give it a star!
 
 ---
 
-## Quick Start Checklist
+**Made with ⚛️ React and 🐍 Python (uv) for aspiring ML/DL researchers**
 
-- [ ] Clone the repository
-- [ ] Install Python dependencies
-- [ ] Open `index.html` in browser
-- [ ] Read Chapter 1
-- [ ] Run `python-examples/01_probability_basics.py`
-- [ ] Complete exercises for Chapter 1
-- [ ] Take Chapter 1 quiz
-- [ ] Move to Chapter 2
-- [ ] Continue through all chapters
-- [ ] Apply knowledge to your ML/DL projects!
+## 📧 Support
+
+For questions or issues, please open a GitHub issue.
+
+---
+
+## Quick Reference Card
+
+```bash
+# Frontend
+npm install          # Install deps
+npm run dev          # Development server
+npm run build        # Production build
+
+# Python
+uv sync              # Install/sync deps
+uv run python <file> # Run Python script
+uv add <package>     # Add new dependency
+
+# Examples
+uv run python python_examples/bayesian/bayesian_inference_statsmodels.py
+uv run python python_examples/markov_models/markov_chains_hmm_statsmodels.py
+```
+
+Happy learning! 📊🎓
