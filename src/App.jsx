@@ -7,6 +7,7 @@ import { ProbabilityFoundations } from './pages/chapters/ProbabilityFoundations'
 import { RandomVariables } from './pages/chapters/RandomVariables';
 import { BayesianProbability } from './pages/chapters/BayesianProbability';
 import { MarkovModels } from './pages/chapters/MarkovModels';
+import { StatisticalLearning } from './pages/chapters/StatisticalLearning';
 import './styles/App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/chapters/random-variables" element={<RandomVariables />} />
           <Route path="/chapters/bayesian-probability" element={<BayesianProbability />} />
           <Route path="/chapters/markov-models" element={<MarkovModels />} />
+          <Route path="/chapters/statistical-learning" element={<StatisticalLearning />} />
         </Routes>
       </Layout>
     </Router>

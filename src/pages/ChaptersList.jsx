@@ -29,6 +29,13 @@ export const ChaptersList = () => {
       topics: ['Markov chains', 'Stationary distributions', 'HMMs', 'Applications'],
       new: true,
     },
+    {
+      number: '05',
+      title: 'Statistical Learning Theory',
+      path: '/chapters/statistical-learning',
+      topics: ['Bias-variance tradeoff', 'Regularization', 'Cross-validation', 'PAC learning', 'VC dimension'],
+      new: true,
+    },
   ];
 
   return (

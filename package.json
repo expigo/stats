@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "framer-motion": "^12.23.24",
+    "plotly.js": "^3.3.0",
+    "react-hot-toast": "^2.6.0",
+    "react-markdown": "^10.1.0",
+    "react-plotly.js": "^2.6.0"
+  }
+}
